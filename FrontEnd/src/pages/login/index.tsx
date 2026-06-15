@@ -3,31 +3,41 @@ import {
     Image,
     Text,
     View,
-    Alert,
+    Alert, TouchableOpacity,
 } from 'react-native';
 import {style} from "./styles";
 import Logo from "../../assets/imagens/logo.png";
 import {FontAwesome} from '@expo/vector-icons';
 import {Input} from "../../components/Input";
 import {Button} from "../../components/Button";
+import {useNavigation,NavigationProp} from "@react-navigation/native";
 
 export default function Login() {
+
+    const navigation = useNavigation<NavigationProp<any>>();
+
     const [usuario,setUsuario] = useState('');
     const [password,setPassword] = useState('');
     const [showPassword,setShowPassword] = useState(true);
     const [loading,setLoading] = useState(false);
 
+    const go = (screenName:string)=>{
+        navigation.navigate(screenName);
+    }
+
     async function getLogin(){
         try{
             setLoading(true);
+
             if(!usuario){
                 return Alert.alert('Atenção','Informe os campos obrigatórios')
             }
 
-            setTimeout(()=>{
+            /*setTimeout(()=>{
                 Alert.alert('Logado com sucesso!')
-            }, 3000)
+            }, 3000)*/
 
+            navigation.reset({routes:[{name:"BottomRoutes"}]});
 
         } catch(error){
             console.log('erro');
@@ -71,7 +81,7 @@ export default function Login() {
               onPress={()=>getLogin()}
               />
             </View>
-            <Text style={style.textBottom}>Não possui conta? <Text style={style.textBottomCreate}>Crie agora!</Text> </Text>
+            <Text style={style.textBottom}>Não possui conta? <TouchableOpacity onPress={()=>go('SingUpRegisterView')}><Text style={style.textBottomCreate}>Crie agora!</Text> </TouchableOpacity> </Text>
         </View>
     )
 }
