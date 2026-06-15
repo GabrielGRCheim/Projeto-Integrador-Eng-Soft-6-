@@ -101,7 +101,7 @@ class OrdemServicoServiceTest {
         // Arrange
         OrdemServicoDTO.Requisicao dto = new OrdemServicoDTO.Requisicao();
         dto.setCarroId(1L);
-        dto.setDescricao("Revisão geral do veículo");
+        dto.setQueixaCliente("Revisão geral do veículo");
         dto.setValorMaoObra(new BigDecimal("150.00"));
 
         when(carroService.buscarEntidade(1L)).thenReturn(carro);
@@ -189,7 +189,7 @@ class OrdemServicoServiceTest {
 
         OrdemServicoDTO.Requisicao dto = new OrdemServicoDTO.Requisicao();
         dto.setCarroId(1L);
-        dto.setDescricao("Tentativa de edição indevida");
+        dto.setQueixaCliente("Tentativa de edição indevida");
 
         // Act & Assert
         RegraNegocioException excecao = assertThrows(

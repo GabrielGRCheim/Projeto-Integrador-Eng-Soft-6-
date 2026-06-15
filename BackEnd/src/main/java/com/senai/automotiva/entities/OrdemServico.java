@@ -30,8 +30,11 @@ public class OrdemServico {
     @Column(nullable = false)
     private StatusOrdemServico status = StatusOrdemServico.ABERTA;
 
+    @Column
+    private String diagnostico;
+
     @Column(length = 500)
-    private String descricao;
+    private String queixaCliente;
 
     @Column(name = "valor_mao_obra", precision = 10, scale = 2)
     private BigDecimal valorMaoObra = BigDecimal.ZERO;
@@ -63,6 +66,14 @@ public class OrdemServico {
         this.atualizadoEm = LocalDateTime.now();
     }
 
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -78,8 +89,8 @@ public class OrdemServico {
     public StatusOrdemServico getStatus() { return status; }
     public void setStatus(StatusOrdemServico status) { this.status = status; }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public String getQueixaCliente() { return queixaCliente; }
+    public void setQueixaCliente(String queixaCliente) { this.queixaCliente = queixaCliente; }
 
     public BigDecimal getValorMaoObra() { return valorMaoObra; }
     public void setValorMaoObra(BigDecimal valorMaoObra) { this.valorMaoObra = valorMaoObra; }

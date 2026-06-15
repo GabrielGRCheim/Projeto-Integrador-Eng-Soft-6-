@@ -43,7 +43,8 @@ public class OrdemServicoService {
         Carro carro = carroService.buscarEntidade(dto.getCarroId());
         OrdemServico os = new OrdemServico();
         os.setCarro(carro);
-        os.setDescricao(dto.getDescricao());
+        os.setDiagnostico(dto.getDiagnostico());
+        os.setQueixaCliente(dto.getQueixaCliente());
         os.setValorMaoObra(dto.getValorMaoObra() != null ? dto.getValorMaoObra() : BigDecimal.ZERO);
         os.setStatus(StatusOrdemServico.ABERTA);
 
@@ -59,7 +60,7 @@ public class OrdemServicoService {
     public OrdemServicoDTO.Resposta atualizar(Long id, OrdemServicoDTO.Requisicao dto) {
         OrdemServico os = buscarEntidade(id);
         validarEdicao(os);
-        os.setDescricao(dto.getDescricao());
+        os.setQueixaCliente(dto.getQueixaCliente());
         os.setValorMaoObra(dto.getValorMaoObra() != null ? dto.getValorMaoObra() : BigDecimal.ZERO);
         if (dto.getResponsavelId() != null) {
             Usuario responsavel = usuarioRepository.findById(dto.getResponsavelId())
@@ -182,7 +183,7 @@ public class OrdemServicoService {
         dto.setModeloCarro(os.getCarro().getMarca() + " " + os.getCarro().getModelo());
         dto.setNomeCliente(os.getCarro().getCliente().getNome());
         dto.setStatus(os.getStatus());
-        dto.setDescricao(os.getDescricao());
+        dto.setQueixaCliente(os.getQueixaCliente());
         dto.setValorMaoObra(os.getValorMaoObra());
         dto.setValorTotal(os.getValorTotal());
         dto.setCriadoEm(os.getCriadoEm() != null ? os.getCriadoEm().toString() : null);
