@@ -21,37 +21,37 @@ public class EstoqueController {
 
     @PostMapping("/pecas")
     @Operation(summary = "Cadastrar nova peça")
-    public ResponseEntity<PecaDTO.Resposta> criarPeca(@RequestBody @Valid PecaDTO.Requisicao dto) {
+    public ResponseEntity<PecaDTO.RespostaPeca> criarPeca(@RequestBody @Valid PecaDTO.RequisicaoPeca dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(estoqueService.criarPeca(dto));
     }
 
     @PutMapping("/pecas/{id}")
     @Operation(summary = "Atualizar peça")
-    public ResponseEntity<PecaDTO.Resposta> atualizarPeca(@PathVariable Long id, @RequestBody @Valid PecaDTO.Requisicao dto) {
+    public ResponseEntity<PecaDTO.RespostaPeca> atualizarPeca(@PathVariable Long id, @RequestBody @Valid PecaDTO.RequisicaoPeca dto) {
         return ResponseEntity.ok(estoqueService.atualizarPeca(id, dto));
     }
 
     @GetMapping("/pecas")
     @Operation(summary = "Listar todas as peças")
-    public ResponseEntity<List<PecaDTO.Resposta>> listarTodas() {
+    public ResponseEntity<List<PecaDTO.RespostaPeca>> listarTodas() {
         return ResponseEntity.ok(estoqueService.listarTodas());
     }
 
     @GetMapping("/pecas/{id}")
     @Operation(summary = "Buscar peça por ID")
-    public ResponseEntity<PecaDTO.Resposta> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<PecaDTO.RespostaPeca> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(estoqueService.buscarPorId(id));
     }
 
     @GetMapping("/pecas/estoque-baixo")
     @Operation(summary = "Listar peças com estoque abaixo do mínimo")
-    public ResponseEntity<List<PecaDTO.Resposta>> listarComEstoqueBaixo() {
+    public ResponseEntity<List<PecaDTO.RespostaPeca>> listarComEstoqueBaixo() {
         return ResponseEntity.ok(estoqueService.listarComEstoqueBaixo());
     }
 
     @PatchMapping("/pecas/{id}/ajustar")
     @Operation(summary = "Ajustar estoque de uma peça (entrada, saída ou ajuste manual)")
-    public ResponseEntity<PecaDTO.Resposta> ajustarEstoque(@PathVariable Long id, @RequestBody @Valid PecaDTO.AjusteEstoque dto) {
+    public ResponseEntity<PecaDTO.RespostaPeca> ajustarEstoque(@PathVariable Long id, @RequestBody @Valid PecaDTO.AjusteEstoque dto) {
         return ResponseEntity.ok(estoqueService.ajustarEstoque(id, dto));
     }
 

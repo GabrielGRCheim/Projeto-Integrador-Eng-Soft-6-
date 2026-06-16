@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class CarroDTO {
 
-    public static class Requisicao {
+    public static class RequisicaoCarro {
         @NotBlank(message = "Marca é obrigatória")
         private String marca;
 
@@ -46,7 +46,7 @@ public class CarroDTO {
         public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
     }
 
-    public static class Resposta {
+    public static class RespostaCarro {
         private Long id;
         private String marca;
         private String modelo;

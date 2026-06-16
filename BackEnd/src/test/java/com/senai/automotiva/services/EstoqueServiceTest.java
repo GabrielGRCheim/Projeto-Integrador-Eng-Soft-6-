@@ -74,10 +74,10 @@ class EstoqueServiceTest {
         ajuste.setMotivo("Reposição de estoque");
 
         // Act
-        PecaDTO.Resposta resposta = estoqueService.ajustarEstoque(1L, ajuste);
+        PecaDTO.RespostaPeca respostaPeca = estoqueService.ajustarEstoque(1L, ajuste);
 
         // Assert
-        assertEquals(15, resposta.getQuantidadeEstoque(),
+        assertEquals(15, respostaPeca.getQuantidadeEstoque(),
                 "Estoque de 10 + entrada de 5 deve resultar em 15");
 
         // Verifica que a movimentação foi registrada com os dados corretos
@@ -126,7 +126,7 @@ class EstoqueServiceTest {
     @DisplayName("Deve lançar RegraNegocioException ao cadastrar peça com preço de venda menor que o custo")
     void deveLancarExcecaoQuandoPrecoVendaMenorQueCusto() {
         // Arrange
-        PecaDTO.Requisicao dto = new PecaDTO.Requisicao();
+        PecaDTO.RequisicaoPeca dto = new PecaDTO.RequisicaoPeca();
         dto.setNome("Pastilha de Freio");
         dto.setCodigo("PF-100");
         dto.setPrecoCusto(new BigDecimal("80.00"));

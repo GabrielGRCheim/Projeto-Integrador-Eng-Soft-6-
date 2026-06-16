@@ -21,7 +21,7 @@ public class UsuarioService {
     private final BCryptPasswordEncoder codificador = new BCryptPasswordEncoder();
 
     @Transactional
-    public UsuarioDTO.Resposta criar(UsuarioDTO.Requisicao dto) {
+    public UsuarioDTO.RespostaUsuario criar(UsuarioDTO.RequisicaoUsuario dto) {
         if (usuarioRepository.existsByEmail(dto.getEmail())) {
             throw new RegraNegocioException("Já existe um usuário cadastrado com o e-mail: " + dto.getEmail());
         }
@@ -35,7 +35,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioDTO.Resposta atualizar(Long id, UsuarioDTO.Requisicao dto) {
+    public UsuarioDTO.RespostaUsuario atualizar(Long id, UsuarioDTO.RequisicaoUsuario dto) {
         Usuario usuario = buscarEntidade(id);
         if (!usuario.getEmail().equals(dto.getEmail()) && usuarioRepository.existsByEmail(dto.getEmail())) {
             throw new RegraNegocioException("E-mail já está em uso por outro usuário.");
@@ -50,12 +50,12 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public List<UsuarioDTO.Resposta> listarTodos() {
+    public List<UsuarioDTO.RespostaUsuario> listarTodos() {
         return usuarioRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public UsuarioDTO.Resposta buscarPorId(Long id) {
+    public UsuarioDTO.RespostaUsuario buscarPorId(Long id) {
         return toResposta(buscarEntidade(id));
     }
 
@@ -77,8 +77,8 @@ public class UsuarioService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado com id: " + id));
     }
 
-    private UsuarioDTO.Resposta toResposta(Usuario u) {
-        UsuarioDTO.Resposta dto = new UsuarioDTO.Resposta();
+    private UsuarioDTO.RespostaUsuario toResposta(Usuario u) {
+        UsuarioDTO.RespostaUsuario dto = new UsuarioDTO.RespostaUsuario();
         dto.setId(u.getId());
         dto.setNome(u.getNome());
         dto.setEmail(u.getEmail());

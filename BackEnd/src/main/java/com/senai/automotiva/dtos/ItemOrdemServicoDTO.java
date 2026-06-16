@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public class ItemOrdemServicoDTO {
 
-    public static class Requisicao {
+    public static class RequisicaoItem {
         @NotNull(message = "Ordem de serviço é obrigatória")
         private Long ordemServicoId;
 
@@ -42,7 +42,7 @@ public class ItemOrdemServicoDTO {
         public void setObservacao(String observacao) { this.observacao = observacao; }
     }
 
-    public static class Resposta {
+    public static class RespostaItem {
         private Long id;
         private Long ordemServicoId;
         private Long servicoId;

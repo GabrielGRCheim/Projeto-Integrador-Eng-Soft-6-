@@ -21,25 +21,25 @@ public class UsuarioController {
 
     @PostMapping
     @Operation(summary = "Criar novo usuário")
-    public ResponseEntity<UsuarioDTO.Resposta> criar(@RequestBody @Valid UsuarioDTO.Requisicao dto) {
+    public ResponseEntity<UsuarioDTO.RespostaUsuario> criar(@RequestBody @Valid UsuarioDTO.RequisicaoUsuario dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.criar(dto));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar usuário")
-    public ResponseEntity<UsuarioDTO.Resposta> atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioDTO.Requisicao dto) {
+    public ResponseEntity<UsuarioDTO.RespostaUsuario> atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioDTO.RequisicaoUsuario dto) {
         return ResponseEntity.ok(usuarioService.atualizar(id, dto));
     }
 
     @GetMapping
     @Operation(summary = "Listar todos os usuários")
-    public ResponseEntity<List<UsuarioDTO.Resposta>> listarTodos() {
+    public ResponseEntity<List<UsuarioDTO.RespostaUsuario>> listarTodos() {
         return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuário por ID")
-    public ResponseEntity<UsuarioDTO.Resposta> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDTO.RespostaUsuario> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 

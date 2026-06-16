@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public class ClienteDTO {
 
-    public static class Requisicao {
+    public static class RequisicaoCliente {
         @NotBlank(message = "Nome é obrigatório")
         private String nome;
 
@@ -33,7 +33,7 @@ public class ClienteDTO {
         public void setEndereco(String endereco) { this.endereco = endereco; }
     }
 
-    public static class Resposta {
+    public static class RespostaCliente {
         private Long id;
         private String nome;
         private String cpf;

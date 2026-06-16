@@ -21,31 +21,31 @@ public class ClienteController {
 
     @PostMapping
     @Operation(summary = "Criar novo cliente")
-    public ResponseEntity<ClienteDTO.Resposta> criar(@RequestBody @Valid ClienteDTO.Requisicao dto) {
+    public ResponseEntity<ClienteDTO.RespostaCliente> criar(@RequestBody @Valid ClienteDTO.RequisicaoCliente dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.criar(dto));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar cliente")
-    public ResponseEntity<ClienteDTO.Resposta> atualizar(@PathVariable Long id, @RequestBody @Valid ClienteDTO.Requisicao dto) {
+    public ResponseEntity<ClienteDTO.RespostaCliente> atualizar(@PathVariable Long id, @RequestBody @Valid ClienteDTO.RequisicaoCliente dto) {
         return ResponseEntity.ok(clienteService.atualizar(id, dto));
     }
 
     @GetMapping
     @Operation(summary = "Listar todos os clientes")
-    public ResponseEntity<List<ClienteDTO.Resposta>> listarTodos() {
+    public ResponseEntity<List<ClienteDTO.RespostaCliente>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar cliente por ID")
-    public ResponseEntity<ClienteDTO.Resposta> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<ClienteDTO.RespostaCliente> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(clienteService.buscarPorId(id));
     }
 
     @GetMapping("/buscar")
     @Operation(summary = "Buscar cliente por nome")
-    public ResponseEntity<List<ClienteDTO.Resposta>> buscarPorNome(@RequestParam String nome) {
+    public ResponseEntity<List<ClienteDTO.RespostaCliente>> buscarPorNome(@RequestParam String nome) {
         return ResponseEntity.ok(clienteService.buscarPorNome(nome));
     }
 

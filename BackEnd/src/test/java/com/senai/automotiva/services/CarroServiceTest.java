@@ -4,7 +4,6 @@ import com.senai.automotiva.dtos.CarroDTO;
 import com.senai.automotiva.entities.Carro;
 import com.senai.automotiva.entities.Cliente;
 import com.senai.automotiva.entities.OrdemServico;
-import com.senai.automotiva.exceptions.RecursoNaoEncontradoException;
 import com.senai.automotiva.exceptions.RegraNegocioException;
 import com.senai.automotiva.repositories.CarroRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -79,7 +78,7 @@ class CarroServiceTest {
     @DisplayName("Deve cadastrar carro com sucesso e converter placa para maiúsculo sem caracteres especiais")
     void deveCadastrarCarroNormalizandoPlaca() {
         // Arrange — placa enviada em minúsculo com hífen (formato Mercosul)
-        CarroDTO.Requisicao dto = new CarroDTO.Requisicao();
+        CarroDTO.RequisicaoCarro dto = new CarroDTO.RequisicaoCarro();
         dto.setMarca("Toyota");
         dto.setModelo("Corolla");
         dto.setAno(2022);
@@ -91,12 +90,12 @@ class CarroServiceTest {
         when(carroRepository.existsByPlaca("TYT1A23")).thenReturn(false);
         when(carroRepository.save(any(Carro.class))).thenReturn(carroSalvo);
 
-        CarroDTO.Resposta resposta = carroService.criar(dto);
+        CarroDTO.RespostaCarro respostaCarro = carroService.criar(dto);
 
-        assertNotNull(resposta);
-        assertEquals("TYT1A23", resposta.getPlaca(),
+        assertNotNull(respostaCarro);
+        assertEquals("TYT1A23", respostaCarro.getPlaca(),
                 "Placa deve estar em maiúsculo e sem caracteres especiais");
-        assertEquals("Ana Lima", resposta.getNomeCliente(),
+        assertEquals("Ana Lima", respostaCarro.getNomeCliente(),
                 "Nome do cliente deve estar vinculado ao carro");
 
         verify(carroRepository, times(1)).save(any(Carro.class));
@@ -110,7 +109,7 @@ class CarroServiceTest {
     @DisplayName("Deve lançar RegraNegocioException ao tentar cadastrar carro com placa já existente")
     void deveLancarExcecaoParaPlacaDuplicada() {
         // Arrange
-        CarroDTO.Requisicao dto = new CarroDTO.Requisicao();
+        CarroDTO.RequisicaoCarro dto = new CarroDTO.RequisicaoCarro();
         dto.setMarca("Honda");
         dto.setModelo("Civic");
         dto.setAno(2020);
@@ -138,7 +137,7 @@ class CarroServiceTest {
     @DisplayName("Deve lançar RegraNegocioException ao tentar cadastrar carro para cliente inativo")
     void deveLancarExcecaoParaClienteInativo() {
         // Arrange
-        CarroDTO.Requisicao dto = new CarroDTO.Requisicao();
+        CarroDTO.RequisicaoCarro dto = new CarroDTO.RequisicaoCarro();
         dto.setMarca("Fiat");
         dto.setModelo("Palio");
         dto.setAno(2019);

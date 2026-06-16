@@ -23,50 +23,50 @@ public class OrdemServicoController {
 
     @PostMapping
     @Operation(summary = "Abrir nova ordem de serviço")
-    public ResponseEntity<OrdemServicoDTO.Resposta> criar(@RequestBody @Valid OrdemServicoDTO.Requisicao dto) {
+    public ResponseEntity<OrdemServicoDTO.RespostaOrdem> criar(@RequestBody @Valid OrdemServicoDTO.RequisicaoOrdem dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ordemServicoService.criar(dto));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar ordem de serviço")
-    public ResponseEntity<OrdemServicoDTO.Resposta> atualizar(@PathVariable Long id, @RequestBody @Valid OrdemServicoDTO.Requisicao dto) {
+    public ResponseEntity<OrdemServicoDTO.RespostaOrdem> atualizar(@PathVariable Long id, @RequestBody @Valid OrdemServicoDTO.RequisicaoOrdem dto) {
         return ResponseEntity.ok(ordemServicoService.atualizar(id, dto));
     }
 
     @PatchMapping("/{id}/status")
     @Operation(summary = "Atualizar status da OS")
-    public ResponseEntity<OrdemServicoDTO.Resposta> atualizarStatus(
+    public ResponseEntity<OrdemServicoDTO.RespostaOrdem> atualizarStatus(
             @PathVariable Long id, @RequestParam StatusOrdemServico novoStatus) {
         return ResponseEntity.ok(ordemServicoService.atualizarStatus(id, novoStatus));
     }
 
     @GetMapping
     @Operation(summary = "Listar todas as ordens de serviço")
-    public ResponseEntity<List<OrdemServicoDTO.Resposta>> listarTodas() {
+    public ResponseEntity<List<OrdemServicoDTO.RespostaOrdem>> listarTodas() {
         return ResponseEntity.ok(ordemServicoService.listarTodas());
     }
 
     @GetMapping("/abertas")
     @Operation(summary = "Listar ordens de serviço abertas/em andamento")
-    public ResponseEntity<List<OrdemServicoDTO.Resposta>> listarAbertas() {
+    public ResponseEntity<List<OrdemServicoDTO.RespostaOrdem>> listarAbertas() {
         return ResponseEntity.ok(ordemServicoService.listarAbertas());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar OS por ID")
-    public ResponseEntity<OrdemServicoDTO.Resposta> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<OrdemServicoDTO.RespostaOrdem> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(ordemServicoService.buscarPorId(id));
     }
 
     @GetMapping("/cliente/{clienteId}")
     @Operation(summary = "Listar OS por cliente")
-    public ResponseEntity<List<OrdemServicoDTO.Resposta>> listarPorCliente(@PathVariable Long clienteId) {
+    public ResponseEntity<List<OrdemServicoDTO.RespostaOrdem>> listarPorCliente(@PathVariable Long clienteId) {
         return ResponseEntity.ok(ordemServicoService.listarPorCliente(clienteId));
     }
 
     @PostMapping("/itens")
     @Operation(summary = "Adicionar item (serviço ou peça) na OS")
-    public ResponseEntity<ItemOrdemServicoDTO.Resposta> adicionarItem(@RequestBody @Valid ItemOrdemServicoDTO.Requisicao dto) {
+    public ResponseEntity<ItemOrdemServicoDTO.RespostaItem> adicionarItem(@RequestBody @Valid ItemOrdemServicoDTO.RequisicaoItem dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ordemServicoService.adicionarItem(dto));
     }
 

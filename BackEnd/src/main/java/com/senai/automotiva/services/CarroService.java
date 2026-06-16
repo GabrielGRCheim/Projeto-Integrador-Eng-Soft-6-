@@ -22,7 +22,7 @@ public class CarroService {
     private ClienteService clienteService;
 
     @Transactional
-    public CarroDTO.Resposta criar(CarroDTO.Requisicao dto) {
+    public CarroDTO.RespostaCarro criar(CarroDTO.RequisicaoCarro dto) {
         String placaFormatada = dto.getPlaca().toUpperCase().replaceAll("[^A-Z0-9]", "");
         if (carroRepository.existsByPlaca(placaFormatada)) {
             throw new RegraNegocioException("Já existe um carro cadastrado com a placa: " + placaFormatada);
@@ -37,7 +37,7 @@ public class CarroService {
     }
 
     @Transactional
-    public CarroDTO.Resposta atualizar(Long id, CarroDTO.Requisicao dto) {
+    public CarroDTO.RespostaCarro atualizar(Long id, CarroDTO.RequisicaoCarro dto) {
         Carro carro = buscarEntidade(id);
         String placaFormatada = dto.getPlaca().toUpperCase().replaceAll("[^A-Z0-9]", "");
         if (!carro.getPlaca().equals(placaFormatada) && carroRepository.existsByPlaca(placaFormatada)) {
@@ -49,19 +49,19 @@ public class CarroService {
     }
 
     @Transactional(readOnly = true)
-    public List<CarroDTO.Resposta> listarTodos() {
+    public List<CarroDTO.RespostaCarro> listarTodos() {
         return carroRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<CarroDTO.Resposta> listarPorCliente(Long clienteId) {
+    public List<CarroDTO.RespostaCarro> listarPorCliente(Long clienteId) {
         clienteService.buscarEntidade(clienteId);
         return carroRepository.findByClienteId(clienteId).stream()
                 .map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public CarroDTO.Resposta buscarPorId(Long id) {
+    public CarroDTO.RespostaCarro buscarPorId(Long id) {
         return toResposta(buscarEntidade(id));
     }
 
@@ -79,7 +79,7 @@ public class CarroService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Carro não encontrado com id: " + id));
     }
 
-    private void preencherEntidade(Carro carro, CarroDTO.Requisicao dto, String placa, Cliente cliente) {
+    private void preencherEntidade(Carro carro, CarroDTO.RequisicaoCarro dto, String placa, Cliente cliente) {
         carro.setMarca(dto.getMarca());
         carro.setModelo(dto.getModelo());
         carro.setAno(dto.getAno());
@@ -89,8 +89,8 @@ public class CarroService {
         carro.setCliente(cliente);
     }
 
-    private CarroDTO.Resposta toResposta(Carro c) {
-        CarroDTO.Resposta dto = new CarroDTO.Resposta();
+    private CarroDTO.RespostaCarro toResposta(Carro c) {
+        CarroDTO.RespostaCarro dto = new CarroDTO.RespostaCarro();
         dto.setId(c.getId());
         dto.setMarca(c.getMarca());
         dto.setModelo(c.getModelo());

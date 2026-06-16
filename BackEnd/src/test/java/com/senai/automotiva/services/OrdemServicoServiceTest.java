@@ -99,7 +99,7 @@ class OrdemServicoServiceTest {
     @DisplayName("Deve criar uma Ordem de Serviço com status ABERTA ao ser criada")
     void deveCriarOrdemServicoComStatusAberta() {
         // Arrange
-        OrdemServicoDTO.Requisicao dto = new OrdemServicoDTO.Requisicao();
+        OrdemServicoDTO.RequisicaoOrdem dto = new OrdemServicoDTO.RequisicaoOrdem();
         dto.setCarroId(1L);
         dto.setQueixaCliente("Revisão geral do veículo");
         dto.setValorMaoObra(new BigDecimal("150.00"));
@@ -109,13 +109,13 @@ class OrdemServicoServiceTest {
         when(itemRepository.findByOrdemServicoId(anyLong())).thenReturn(new ArrayList<>());
 
         // Act
-        OrdemServicoDTO.Resposta resposta = ordemServicoService.criar(dto);
+        OrdemServicoDTO.RespostaOrdem respostaOrdem = ordemServicoService.criar(dto);
 
         // Assert
-        assertNotNull(resposta, "Resposta não deve ser nula");
-        assertEquals(StatusOrdemServico.ABERTA, resposta.getStatus(),
+        assertNotNull(respostaOrdem, "Resposta não deve ser nula");
+        assertEquals(StatusOrdemServico.ABERTA, respostaOrdem.getStatus(),
                 "Nova OS deve iniciar com status ABERTA");
-        assertEquals("XYZ9W88", resposta.getPlacaCarro(),
+        assertEquals("XYZ9W88", respostaOrdem.getPlacaCarro(),
                 "Placa do carro deve estar correta na resposta");
 
         verify(ordemServicoRepository, times(1)).save(any(OrdemServico.class));
@@ -141,10 +141,10 @@ class OrdemServicoServiceTest {
         when(itemRepository.findByOrdemServicoId(anyLong())).thenReturn(new ArrayList<>());
 
         // Act
-        OrdemServicoDTO.Resposta resposta = ordemServicoService.atualizarStatus(1L, StatusOrdemServico.EM_ANDAMENTO);
+        OrdemServicoDTO.RespostaOrdem respostaOrdem = ordemServicoService.atualizarStatus(1L, StatusOrdemServico.EM_ANDAMENTO);
 
         // Assert
-        assertEquals(StatusOrdemServico.EM_ANDAMENTO, resposta.getStatus(),
+        assertEquals(StatusOrdemServico.EM_ANDAMENTO, respostaOrdem.getStatus(),
                 "Status deve ter sido atualizado para EM_ANDAMENTO");
     }
 
@@ -187,7 +187,7 @@ class OrdemServicoServiceTest {
 
         when(ordemServicoRepository.findById(3L)).thenReturn(Optional.of(osCancelada));
 
-        OrdemServicoDTO.Requisicao dto = new OrdemServicoDTO.Requisicao();
+        OrdemServicoDTO.RequisicaoOrdem dto = new OrdemServicoDTO.RequisicaoOrdem();
         dto.setCarroId(1L);
         dto.setQueixaCliente("Tentativa de edição indevida");
 

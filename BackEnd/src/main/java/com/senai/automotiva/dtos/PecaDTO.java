@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class PecaDTO {
 
-    public static class Requisicao {
+    public static class RequisicaoPeca {
         @NotBlank(message = "Nome da peça é obrigatório")
         private String nome;
 
@@ -58,7 +58,7 @@ public class PecaDTO {
         public void setFornecedor(String fornecedor) { this.fornecedor = fornecedor; }
     }
 
-    public static class Resposta {
+    public static class RespostaPeca {
         private Long id;
         private String nome;
         private String codigo;

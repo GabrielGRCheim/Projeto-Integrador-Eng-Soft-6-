@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
@@ -39,18 +38,18 @@ class ClienteServiceTest {
     @InjectMocks
     private ClienteService clienteService;
 
-    private ClienteDTO.Requisicao requisicaoValida;
+    private ClienteDTO.RequisicaoCliente requisicaoClienteValida;
     private Cliente clienteSalvo;
 
     @BeforeEach
     void configurar() {
         // DTO de entrada com dados válidos reutilizado nos testes
-        requisicaoValida = new ClienteDTO.Requisicao();
-        requisicaoValida.setNome("Maria Oliveira");
-        requisicaoValida.setCpf("529.982.247-25"); // CPF formatado (com máscara)
-        requisicaoValida.setTelefone("(62) 98888-1111");
-        requisicaoValida.setEmail("maria@email.com");
-        requisicaoValida.setEndereco("Rua das Flores, 100");
+        requisicaoClienteValida = new ClienteDTO.RequisicaoCliente();
+        requisicaoClienteValida.setNome("Maria Oliveira");
+        requisicaoClienteValida.setCpf("529.982.247-25"); // CPF formatado (com máscara)
+        requisicaoClienteValida.setTelefone("(62) 98888-1111");
+        requisicaoClienteValida.setEmail("maria@email.com");
+        requisicaoClienteValida.setEndereco("Rua das Flores, 100");
 
         // Entidade que simula o retorno do banco após o save()
         clienteSalvo = new Cliente();
@@ -75,14 +74,14 @@ class ClienteServiceTest {
         when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteSalvo);
 
         // Act
-        ClienteDTO.Resposta resposta = clienteService.criar(requisicaoValida);
+        ClienteDTO.RespostaCliente respostaCliente = clienteService.criar(requisicaoClienteValida);
 
         // Assert
-        assertNotNull(resposta, "A resposta não deve ser nula");
-        assertEquals(1L, resposta.getId());
-        assertEquals("Maria Oliveira", resposta.getNome());
-        assertEquals("52998224725", resposta.getCpf()); // CPF deve estar limpo
-        assertTrue(resposta.getAtivo());
+        assertNotNull(respostaCliente, "A resposta não deve ser nula");
+        assertEquals(1L, respostaCliente.getId());
+        assertEquals("Maria Oliveira", respostaCliente.getNome());
+        assertEquals("52998224725", respostaCliente.getCpf()); // CPF deve estar limpo
+        assertTrue(respostaCliente.getAtivo());
 
         // Verifica que o repositório foi chamado uma vez para salvar
         verify(clienteRepository, times(1)).save(any(Cliente.class));
@@ -100,7 +99,7 @@ class ClienteServiceTest {
         // Act & Assert
         RegraNegocioException excecao = assertThrows(
                 RegraNegocioException.class,
-                () -> clienteService.criar(requisicaoValida),
+                () -> clienteService.criar(requisicaoClienteValida),
                 "Deveria lançar RegraNegocioException para CPF duplicado"
         );
 

@@ -25,7 +25,7 @@ public class SecurityConfig {
                         // Rota do console do Banco de Dados H2
                         .requestMatchers("/h2-console/**").permitAll()
                         // Qualquer outra rota da sua API exigirá autenticação
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
 
                 // 3. Permite o uso de <frame> ou <iframe> apenas da mesma origem (SameOrigin).

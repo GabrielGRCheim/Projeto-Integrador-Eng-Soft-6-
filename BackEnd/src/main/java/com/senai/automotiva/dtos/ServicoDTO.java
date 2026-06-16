@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class ServicoDTO {
 
-    public static class Requisicao {
+    public static class RequisicaoServico {
         @NotBlank(message = "Nome do serviço é obrigatório")
         private String nome;
 
@@ -32,7 +32,7 @@ public class ServicoDTO {
         public void setTempoEstimadoHoras(Double tempoEstimadoHoras) { this.tempoEstimadoHoras = tempoEstimadoHoras; }
     }
 
-    public static class Resposta {
+    public static class RespostaServico {
         private Long id;
         private String nome;
         private String descricao;

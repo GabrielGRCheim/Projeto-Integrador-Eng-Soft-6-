@@ -8,8 +8,7 @@ import jakarta.validation.constraints.Size;
 
 public class UsuarioDTO {
 
-    // DTO de Requisição (Criar/Atualizar)
-    public static class Requisicao {
+    public static class RequisicaoUsuario {
         @NotBlank(message = "Nome é obrigatório")
         private String nome;
 
@@ -37,8 +36,8 @@ public class UsuarioDTO {
         public void setPerfil(PerfilUsuario perfil) { this.perfil = perfil; }
     }
 
-    // DTO de Resposta
-    public static class Resposta {
+
+    public static class RespostaUsuario {
         private Long id;
         private String nome;
         private String email;

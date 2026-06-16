@@ -7,7 +7,7 @@ import java.util.List;
 
 public class OrdemServicoDTO {
 
-    public static class Requisicao {
+    public static class RequisicaoOrdem {
         @NotNull(message = "Carro é obrigatório")
         private Long carroId;
         private String diagnostico;
@@ -32,7 +32,7 @@ public class OrdemServicoDTO {
         public void setValorMaoObra(BigDecimal valorMaoObra) { this.valorMaoObra = valorMaoObra; }
     }
 
-    public static class Resposta {
+    public static class RespostaOrdem {
         private Long id;
         private String numeroOs;
         private Long carroId;
@@ -47,7 +47,7 @@ public class OrdemServicoDTO {
         private BigDecimal valorTotal;
         private String criadoEm;
         private String concluidoEm;
-        private List<ItemOrdemServicoDTO.Resposta> itens;
+        private List<ItemOrdemServicoDTO.RespostaItem> itens;
 
         public Long getId() { return id; }
         public void setId(Long id) { this.id = id; }
@@ -92,7 +92,7 @@ public class OrdemServicoDTO {
         public String getConcluidoEm() { return concluidoEm; }
         public void setConcluidoEm(String concluidoEm) { this.concluidoEm = concluidoEm; }
 
-        public List<ItemOrdemServicoDTO.Resposta> getItens() { return itens; }
-        public void setItens(List<ItemOrdemServicoDTO.Resposta> itens) { this.itens = itens; }
+        public List<ItemOrdemServicoDTO.RespostaItem> getItens() { return itens; }
+        public void setItens(List<ItemOrdemServicoDTO.RespostaItem> itens) { this.itens = itens; }
     }
 }

@@ -18,7 +18,7 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Transactional
-    public ClienteDTO.Resposta criar(ClienteDTO.Requisicao dto) {
+    public ClienteDTO.RespostaCliente criar(ClienteDTO.RequisicaoCliente dto) {
         String cpfLimpo = dto.getCpf().replaceAll("[^0-9]", "");
         if (clienteRepository.existsByCpf(cpfLimpo)) {
             throw new RegraNegocioException("Já existe um cliente cadastrado com o CPF informado.");
@@ -29,7 +29,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public ClienteDTO.Resposta atualizar(Long id, ClienteDTO.Requisicao dto) {
+    public ClienteDTO.RespostaCliente atualizar(Long id, ClienteDTO.RequisicaoCliente dto) {
         Cliente cliente = buscarEntidade(id);
         String cpfLimpo = dto.getCpf().replaceAll("[^0-9]", "");
         if (!cliente.getCpf().equals(cpfLimpo) && clienteRepository.existsByCpf(cpfLimpo)) {
@@ -40,18 +40,18 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO.Resposta> listarTodos() {
+    public List<ClienteDTO.RespostaCliente> listarTodos() {
         return clienteRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO.Resposta> buscarPorNome(String nome) {
+    public List<ClienteDTO.RespostaCliente> buscarPorNome(String nome) {
         return clienteRepository.findByNomeContainingIgnoreCase(nome).stream()
                 .map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public ClienteDTO.Resposta buscarPorId(Long id) {
+    public ClienteDTO.RespostaCliente buscarPorId(Long id) {
         return toResposta(buscarEntidade(id));
     }
 
@@ -76,7 +76,7 @@ public class ClienteService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente não encontrado com id: " + id));
     }
 
-    private void preencherEntidade(Cliente cliente, ClienteDTO.Requisicao dto, String cpfLimpo) {
+    private void preencherEntidade(Cliente cliente, ClienteDTO.RequisicaoCliente dto, String cpfLimpo) {
         cliente.setNome(dto.getNome());
         cliente.setCpf(cpfLimpo);
         cliente.setTelefone(dto.getTelefone());
@@ -84,8 +84,8 @@ public class ClienteService {
         cliente.setEndereco(dto.getEndereco());
     }
 
-    private ClienteDTO.Resposta toResposta(Cliente c) {
-        ClienteDTO.Resposta dto = new ClienteDTO.Resposta();
+    private ClienteDTO.RespostaCliente toResposta(Cliente c) {
+        ClienteDTO.RespostaCliente dto = new ClienteDTO.RespostaCliente();
         dto.setId(c.getId());
         dto.setNome(c.getNome());
         dto.setCpf(c.getCpf());

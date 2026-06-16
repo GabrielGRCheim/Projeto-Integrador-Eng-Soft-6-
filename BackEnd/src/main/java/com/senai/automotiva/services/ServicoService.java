@@ -17,31 +17,31 @@ public class ServicoService {
     private ServicoRepository servicoRepository;
 
     @Transactional
-    public ServicoDTO.Resposta criar(ServicoDTO.Requisicao dto) {
+    public ServicoDTO.RespostaServico criar(ServicoDTO.RequisicaoServico dto) {
         Servico servico = new Servico();
         preencherEntidade(servico, dto);
         return toResposta(servicoRepository.save(servico));
     }
 
     @Transactional
-    public ServicoDTO.Resposta atualizar(Long id, ServicoDTO.Requisicao dto) {
+    public ServicoDTO.RespostaServico atualizar(Long id, ServicoDTO.RequisicaoServico dto) {
         Servico servico = buscarEntidade(id);
         preencherEntidade(servico, dto);
         return toResposta(servicoRepository.save(servico));
     }
 
     @Transactional(readOnly = true)
-    public List<ServicoDTO.Resposta> listarTodos() {
+    public List<ServicoDTO.RespostaServico> listarTodos() {
         return servicoRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<ServicoDTO.Resposta> listarAtivos() {
+    public List<ServicoDTO.RespostaServico> listarAtivos() {
         return servicoRepository.findByAtivo(true).stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public ServicoDTO.Resposta buscarPorId(Long id) {
+    public ServicoDTO.RespostaServico buscarPorId(Long id) {
         return toResposta(buscarEntidade(id));
     }
 
@@ -63,15 +63,15 @@ public class ServicoService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Serviço não encontrado com id: " + id));
     }
 
-    private void preencherEntidade(Servico servico, ServicoDTO.Requisicao dto) {
+    private void preencherEntidade(Servico servico, ServicoDTO.RequisicaoServico dto) {
         servico.setNome(dto.getNome());
         servico.setDescricao(dto.getDescricao());
         servico.setPrecoBase(dto.getPrecoBase());
         servico.setTempoEstimadoHoras(dto.getTempoEstimadoHoras());
     }
 
-    private ServicoDTO.Resposta toResposta(Servico s) {
-        ServicoDTO.Resposta dto = new ServicoDTO.Resposta();
+    private ServicoDTO.RespostaServico toResposta(Servico s) {
+        ServicoDTO.RespostaServico dto = new ServicoDTO.RespostaServico();
         dto.setId(s.getId());
         dto.setNome(s.getNome());
         dto.setDescricao(s.getDescricao());

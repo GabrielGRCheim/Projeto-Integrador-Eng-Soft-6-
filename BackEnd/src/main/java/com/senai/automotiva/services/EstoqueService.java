@@ -23,7 +23,7 @@ public class EstoqueService {
     private MovimentacaoEstoqueRepository movimentacaoRepository;
 
     @Transactional
-    public PecaDTO.Resposta criarPeca(PecaDTO.Requisicao dto) {
+    public PecaDTO.RespostaPeca criarPeca(PecaDTO.RequisicaoPeca dto) {
         if (dto.getCodigo() != null && !dto.getCodigo().isBlank() && pecaRepository.existsByCodigo(dto.getCodigo())) {
             throw new RegraNegocioException("Já existe uma peça cadastrada com o código: " + dto.getCodigo());
         }
@@ -36,7 +36,7 @@ public class EstoqueService {
     }
 
     @Transactional
-    public PecaDTO.Resposta atualizarPeca(Long id, PecaDTO.Requisicao dto) {
+    public PecaDTO.RespostaPeca atualizarPeca(Long id, PecaDTO.RequisicaoPeca dto) {
         Peca peca = buscarEntidade(id);
         if (dto.getCodigo() != null && !dto.getCodigo().isBlank()
                 && !dto.getCodigo().equals(peca.getCodigo())
@@ -51,22 +51,22 @@ public class EstoqueService {
     }
 
     @Transactional(readOnly = true)
-    public List<PecaDTO.Resposta> listarTodas() {
+    public List<PecaDTO.RespostaPeca> listarTodas() {
         return pecaRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<PecaDTO.Resposta> listarComEstoqueBaixo() {
+    public List<PecaDTO.RespostaPeca> listarComEstoqueBaixo() {
         return pecaRepository.findPecasComEstoqueBaixo().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public PecaDTO.Resposta buscarPorId(Long id) {
+    public PecaDTO.RespostaPeca buscarPorId(Long id) {
         return toResposta(buscarEntidade(id));
     }
 
     @Transactional
-    public PecaDTO.Resposta ajustarEstoque(Long pecaId, PecaDTO.AjusteEstoque dto) {
+    public PecaDTO.RespostaPeca ajustarEstoque(Long pecaId, PecaDTO.AjusteEstoque dto) {
         Peca peca = buscarEntidade(pecaId);
         int quantidadeAnterior = peca.getQuantidadeEstoque();
 
@@ -140,7 +140,7 @@ public class EstoqueService {
         movimentacaoRepository.save(mov);
     }
 
-    private void preencherEntidade(Peca peca, PecaDTO.Requisicao dto) {
+    private void preencherEntidade(Peca peca, PecaDTO.RequisicaoPeca dto) {
         peca.setNome(dto.getNome());
         peca.setCodigo(dto.getCodigo());
         peca.setDescricao(dto.getDescricao());
@@ -152,8 +152,8 @@ public class EstoqueService {
         peca.setFornecedor(dto.getFornecedor());
     }
 
-    public PecaDTO.Resposta toResposta(Peca p) {
-        PecaDTO.Resposta dto = new PecaDTO.Resposta();
+    public PecaDTO.RespostaPeca toResposta(Peca p) {
+        PecaDTO.RespostaPeca dto = new PecaDTO.RespostaPeca();
         dto.setId(p.getId());
         dto.setNome(p.getNome());
         dto.setCodigo(p.getCodigo());

@@ -21,31 +21,31 @@ public class ServicoController {
 
     @PostMapping
     @Operation(summary = "Cadastrar novo serviço")
-    public ResponseEntity<ServicoDTO.Resposta> criar(@RequestBody @Valid ServicoDTO.Requisicao dto) {
+    public ResponseEntity<ServicoDTO.RespostaServico> criar(@RequestBody @Valid ServicoDTO.RequisicaoServico dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(servicoService.criar(dto));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar serviço")
-    public ResponseEntity<ServicoDTO.Resposta> atualizar(@PathVariable Long id, @RequestBody @Valid ServicoDTO.Requisicao dto) {
+    public ResponseEntity<ServicoDTO.RespostaServico> atualizar(@PathVariable Long id, @RequestBody @Valid ServicoDTO.RequisicaoServico dto) {
         return ResponseEntity.ok(servicoService.atualizar(id, dto));
     }
 
     @GetMapping
     @Operation(summary = "Listar todos os serviços")
-    public ResponseEntity<List<ServicoDTO.Resposta>> listarTodos() {
+    public ResponseEntity<List<ServicoDTO.RespostaServico>> listarTodos() {
         return ResponseEntity.ok(servicoService.listarTodos());
     }
 
     @GetMapping("/ativos")
     @Operation(summary = "Listar serviços ativos")
-    public ResponseEntity<List<ServicoDTO.Resposta>> listarAtivos() {
+    public ResponseEntity<List<ServicoDTO.RespostaServico>> listarAtivos() {
         return ResponseEntity.ok(servicoService.listarAtivos());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar serviço por ID")
-    public ResponseEntity<ServicoDTO.Resposta> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<ServicoDTO.RespostaServico> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(servicoService.buscarPorId(id));
     }
 

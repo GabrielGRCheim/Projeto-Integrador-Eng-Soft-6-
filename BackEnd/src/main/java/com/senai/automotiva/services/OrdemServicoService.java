@@ -39,7 +39,7 @@ public class OrdemServicoService {
     private EstoqueService estoqueService;
 
     @Transactional
-    public OrdemServicoDTO.Resposta criar(OrdemServicoDTO.Requisicao dto) {
+    public OrdemServicoDTO.RespostaOrdem criar(OrdemServicoDTO.RequisicaoOrdem dto) {
         Carro carro = carroService.buscarEntidade(dto.getCarroId());
         OrdemServico os = new OrdemServico();
         os.setCarro(carro);
@@ -57,7 +57,7 @@ public class OrdemServicoService {
     }
 
     @Transactional
-    public OrdemServicoDTO.Resposta atualizar(Long id, OrdemServicoDTO.Requisicao dto) {
+    public OrdemServicoDTO.RespostaOrdem atualizar(Long id, OrdemServicoDTO.RequisicaoOrdem dto) {
         OrdemServico os = buscarEntidade(id);
         validarEdicao(os);
         os.setQueixaCliente(dto.getQueixaCliente());
@@ -72,7 +72,7 @@ public class OrdemServicoService {
     }
 
     @Transactional
-    public OrdemServicoDTO.Resposta atualizarStatus(Long id, StatusOrdemServico novoStatus) {
+    public OrdemServicoDTO.RespostaOrdem atualizarStatus(Long id, StatusOrdemServico novoStatus) {
         OrdemServico os = buscarEntidade(id);
         validarTransicaoStatus(os.getStatus(), novoStatus);
         os.setStatus(novoStatus);
@@ -83,7 +83,7 @@ public class OrdemServicoService {
     }
 
     @Transactional
-    public ItemOrdemServicoDTO.Resposta adicionarItem(ItemOrdemServicoDTO.Requisicao dto) {
+    public ItemOrdemServicoDTO.RespostaItem adicionarItem(ItemOrdemServicoDTO.RequisicaoItem dto) {
         OrdemServico os = buscarEntidade(dto.getOrdemServicoId());
         validarEdicao(os);
 
@@ -123,22 +123,22 @@ public class OrdemServicoService {
     }
 
     @Transactional(readOnly = true)
-    public List<OrdemServicoDTO.Resposta> listarTodas() {
+    public List<OrdemServicoDTO.RespostaOrdem> listarTodas() {
         return ordemServicoRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<OrdemServicoDTO.Resposta> listarAbertas() {
+    public List<OrdemServicoDTO.RespostaOrdem> listarAbertas() {
         return ordemServicoRepository.findOrdensAbertas().stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public OrdemServicoDTO.Resposta buscarPorId(Long id) {
+    public OrdemServicoDTO.RespostaOrdem buscarPorId(Long id) {
         return toResposta(buscarEntidade(id));
     }
 
     @Transactional(readOnly = true)
-    public List<OrdemServicoDTO.Resposta> listarPorCliente(Long clienteId) {
+    public List<OrdemServicoDTO.RespostaOrdem> listarPorCliente(Long clienteId) {
         return ordemServicoRepository.findByCarroClienteId(clienteId)
                 .stream().map(this::toResposta).collect(Collectors.toList());
     }
@@ -174,8 +174,8 @@ public class OrdemServicoService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Ordem de serviço não encontrada com id: " + id));
     }
 
-    private OrdemServicoDTO.Resposta toResposta(OrdemServico os) {
-        OrdemServicoDTO.Resposta dto = new OrdemServicoDTO.Resposta();
+    private OrdemServicoDTO.RespostaOrdem toResposta(OrdemServico os) {
+        OrdemServicoDTO.RespostaOrdem dto = new OrdemServicoDTO.RespostaOrdem();
         dto.setId(os.getId());
         dto.setNumeroOs(os.getNumeroOs());
         dto.setCarroId(os.getCarro().getId());
@@ -191,14 +191,14 @@ public class OrdemServicoService {
         if (os.getResponsavel() != null) {
             dto.setNomeResponsavel(os.getResponsavel().getNome());
         }
-        List<ItemOrdemServicoDTO.Resposta> itens = itemRepository.findByOrdemServicoId(os.getId())
+        List<ItemOrdemServicoDTO.RespostaItem> itens = itemRepository.findByOrdemServicoId(os.getId())
                 .stream().map(this::toItemResposta).collect(Collectors.toList());
         dto.setItens(itens);
         return dto;
     }
 
-    private ItemOrdemServicoDTO.Resposta toItemResposta(ItemOrdemServico item) {
-        ItemOrdemServicoDTO.Resposta dto = new ItemOrdemServicoDTO.Resposta();
+    private ItemOrdemServicoDTO.RespostaItem toItemResposta(ItemOrdemServico item) {
+        ItemOrdemServicoDTO.RespostaItem dto = new ItemOrdemServicoDTO.RespostaItem();
         dto.setId(item.getId());
         dto.setOrdemServicoId(item.getOrdemServico().getId());
         dto.setQuantidade(item.getQuantidade());
