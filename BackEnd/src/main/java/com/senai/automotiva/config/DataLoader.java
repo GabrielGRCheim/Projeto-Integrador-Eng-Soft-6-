@@ -93,6 +93,7 @@ public class DataLoader implements CommandLineRunner {
             carro.setAno(2021);
             carro.setPlaca("ABC1D23");
             carro.setCor("Prata");
+            carro.setQuilometragem(30000);
             carro.setCliente(cliente);
             carroRepository.save(carro);
         }

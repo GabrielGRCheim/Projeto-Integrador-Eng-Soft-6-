@@ -14,11 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class OrdemServicoService {
+
+    DateTimeFormatter formatadorBR = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Autowired
     private OrdemServicoRepository ordemServicoRepository;
@@ -44,6 +47,7 @@ public class OrdemServicoService {
         OrdemServico os = new OrdemServico();
         os.setCarro(carro);
         os.setDiagnostico(dto.getDiagnostico());
+        os.setQueixaCliente(dto.getQueixaCliente());
         os.setQueixaCliente(dto.getQueixaCliente());
         os.setValorMaoObra(dto.getValorMaoObra() != null ? dto.getValorMaoObra() : BigDecimal.ZERO);
         os.setStatus(StatusOrdemServico.ABERTA);
@@ -181,13 +185,16 @@ public class OrdemServicoService {
         dto.setCarroId(os.getCarro().getId());
         dto.setPlacaCarro(os.getCarro().getPlaca());
         dto.setModeloCarro(os.getCarro().getMarca() + " " + os.getCarro().getModelo());
+        dto.setCorCarro(os.getCarro().getCor());
+        dto.setChassiCarro(os.getCarro().getChassi());
+        dto.setQuilometragem(os.getCarro().getQuilometragem());
         dto.setNomeCliente(os.getCarro().getCliente().getNome());
         dto.setStatus(os.getStatus());
         dto.setQueixaCliente(os.getQueixaCliente());
         dto.setValorMaoObra(os.getValorMaoObra());
         dto.setValorTotal(os.getValorTotal());
-        dto.setCriadoEm(os.getCriadoEm() != null ? os.getCriadoEm().toString() : null);
-        dto.setConcluidoEm(os.getConcluidoEm() != null ? os.getConcluidoEm().toString() : null);
+        dto.setCriadoEm(os.getCriadoEm() != null ? os.getCriadoEm().format(formatadorBR) : null);
+        dto.setConcluidoEm(os.getConcluidoEm() != null ? os.getConcluidoEm().format(formatadorBR) : null);
         if (os.getResponsavel() != null) {
             dto.setNomeResponsavel(os.getResponsavel().getNome());
         }

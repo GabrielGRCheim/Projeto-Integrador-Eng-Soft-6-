@@ -1,5 +1,6 @@
 package com.senai.automotiva.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.senai.automotiva.enums.StatusOrdemServico;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -43,9 +44,11 @@ public class OrdemServico {
     private BigDecimal valorTotal = BigDecimal.ZERO;
 
     @Column(name = "criado_em")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime criadoEm;
 
     @Column(name = "atualizado_em")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime atualizadoEm;
 
     @Column(name = "concluido_em")

@@ -38,6 +38,9 @@ public class OrdemServicoDTO {
         private Long carroId;
         private String placaCarro;
         private String modeloCarro;
+        private String corCarro;
+        private String chassiCarro;
+        private Integer  quilometragem;
         private String nomeCliente;
         private String nomeResponsavel;
         private StatusOrdemServico status;
@@ -55,11 +58,20 @@ public class OrdemServicoDTO {
         public String getNumeroOs() { return numeroOs; }
         public void setNumeroOs(String numeroOs) { this.numeroOs = numeroOs; }
 
+        public String getChassiCarro() { return chassiCarro; }
+        public void setChassiCarro(String chassiCarro) { this.chassiCarro = chassiCarro; }
+
+        public String getCorCarro() { return corCarro; }
+        public void setCorCarro(String corCarro) { this.corCarro = corCarro; }
+
         public Long getCarroId() { return carroId; }
         public void setCarroId(Long carroId) { this.carroId = carroId; }
 
         public String getPlacaCarro() { return placaCarro; }
         public void setPlacaCarro(String placaCarro) { this.placaCarro = placaCarro; }
+
+        public Integer getQuilometragem() { return quilometragem; }
+        public void setQuilometragem(Integer quilometragem) { this.quilometragem = quilometragem; }
 
         public String getModeloCarro() { return modeloCarro; }
         public void setModeloCarro(String modeloCarro) { this.modeloCarro = modeloCarro; }
@@ -74,7 +86,6 @@ public class OrdemServicoDTO {
         public void setStatus(StatusOrdemServico status) { this.status = status; }
 
         public String getDiagnostico() { return diagnostico; }
-
         public void setDiagnostico(String diagnostico) { this.diagnostico = diagnostico; }
 
         public String getQueixaCliente() { return queixaCliente; }

@@ -84,6 +84,7 @@ public class CarroService {
         carro.setModelo(dto.getModelo());
         carro.setAno(dto.getAno());
         carro.setPlaca(placa);
+        carro.setQuilometragem(dto.getQuilometragem());
         carro.setCor(dto.getCor());
         carro.setChassi(dto.getChassi());
         carro.setCliente(cliente);
@@ -96,6 +97,7 @@ public class CarroService {
         dto.setModelo(c.getModelo());
         dto.setAno(c.getAno());
         dto.setPlaca(c.getPlaca());
+        dto.setQuilometragem(c.getQuilometragem());
         dto.setCor(c.getCor());
         dto.setChassi(c.getChassi());
         dto.setClienteId(c.getCliente().getId());

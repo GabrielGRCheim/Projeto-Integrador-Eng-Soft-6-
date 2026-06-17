@@ -27,6 +27,9 @@ public class Carro {
     @Column(length = 30)
     private String cor;
 
+    @Column(nullable = false, length = 999999)
+    private Integer quilometragem;
+
     @Column(length = 50)
     private String chassi;
 
@@ -45,6 +48,9 @@ public class Carro {
 
     public String getModelo() { return modelo; }
     public void setModelo(String modelo) { this.modelo = modelo; }
+
+    public Integer getQuilometragem() { return quilometragem; }
+    public void setQuilometragem(Integer quilometragem) { this.quilometragem = quilometragem; }
 
     public Integer getAno() { return ano; }
     public void setAno(Integer ano) { this.ano = ano; }

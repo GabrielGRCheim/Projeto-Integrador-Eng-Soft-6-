@@ -18,7 +18,10 @@ public class CarroDTO {
         @NotBlank(message = "Placa é obrigatória")
         private String placa;
 
+        private Integer quilometragem;
+
         private String cor;
+
         private String chassi;
 
         @NotNull(message = "Cliente é obrigatório")
@@ -32,6 +35,9 @@ public class CarroDTO {
 
         public Integer getAno() { return ano; }
         public void setAno(Integer ano) { this.ano = ano; }
+
+        public Integer getQuilometragem() { return quilometragem; }
+        public void setQuilometragem(Integer quilometragem) { this.quilometragem = quilometragem; }
 
         public String getPlaca() { return placa; }
         public void setPlaca(String placa) { this.placa = placa; }
@@ -52,6 +58,7 @@ public class CarroDTO {
         private String modelo;
         private Integer ano;
         private String placa;
+        private Integer quilometragem;
         private String cor;
         private String chassi;
         private Long clienteId;
@@ -71,6 +78,9 @@ public class CarroDTO {
 
         public String getPlaca() { return placa; }
         public void setPlaca(String placa) { this.placa = placa; }
+
+        public Integer getQuilometragem() { return quilometragem; }
+        public void setQuilometragem(Integer quilometragem) { this.quilometragem = quilometragem; }
 
         public String getCor() { return cor; }
         public void setCor(String cor) { this.cor = cor; }

@@ -2,7 +2,9 @@ package com.senai.automotiva.controllers;
 
 import com.senai.automotiva.dtos.PecaDTO;
 import com.senai.automotiva.services.EstoqueService;
+import com.senai.automotiva.utils.CriterioOrdenacao;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,18 @@ public class EstoqueController {
     @Operation(summary = "Listar todas as peças")
     public ResponseEntity<List<PecaDTO.RespostaPeca>> listarTodas() {
         return ResponseEntity.ok(estoqueService.listarTodas());
+    }
+
+    @GetMapping("/pecas/ordenadas")
+    @Operation(
+            summary = "Listar peças ordenadas via Merge Sort",
+            description = "Retorna todas as peças ordenadas pelo critério informado usando o algoritmo Merge Sort. " +
+                    "Critérios disponíveis: NOME_CRESCENTE, NOME_DECRESCENTE, QUANTIDADE_CRESCENTE, QUANTIDADE_DECRESCENTE."
+    )
+    public ResponseEntity<List<PecaDTO.RespostaPeca>> listarOrdenadas(
+            @Parameter(description = "Critério de ordenação", example = "NOME_CRESCENTE")
+            @RequestParam CriterioOrdenacao criterio) {
+        return ResponseEntity.ok(estoqueService.listarOrdenadas(criterio));
     }
 
     @GetMapping("/pecas/{id}")

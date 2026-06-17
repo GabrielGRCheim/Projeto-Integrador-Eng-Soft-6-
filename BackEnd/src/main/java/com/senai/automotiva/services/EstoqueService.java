@@ -7,6 +7,8 @@ import com.senai.automotiva.exceptions.RecursoNaoEncontradoException;
 import com.senai.automotiva.exceptions.RegraNegocioException;
 import com.senai.automotiva.repositories.MovimentacaoEstoqueRepository;
 import com.senai.automotiva.repositories.PecaRepository;
+import com.senai.automotiva.utils.CriterioOrdenacao;
+import com.senai.automotiva.utils.MergeSortEstoque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class EstoqueService {
 
+    private final MergeSortEstoque mergeSortEstoque = new MergeSortEstoque();
+    
     @Autowired
     private PecaRepository pecaRepository;
 
@@ -53,6 +57,13 @@ public class EstoqueService {
     @Transactional(readOnly = true)
     public List<PecaDTO.RespostaPeca> listarTodas() {
         return pecaRepository.findAll().stream().map(this::toResposta).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PecaDTO.RespostaPeca> listarOrdenadas(CriterioOrdenacao criterio) {
+        List<Peca> todasPecas = pecaRepository.findAll();
+        List<Peca> ordenadas = mergeSortEstoque.ordenar(todasPecas, criterio);
+        return ordenadas.stream().map(this::toResposta).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
