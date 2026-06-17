@@ -30,7 +30,7 @@ public class Carro {
     @Column(nullable = false, length = 999999)
     private Integer quilometragem;
 
-    @Column(length = 50)
+    @Column(nullable = false, unique = true, length = 17)
     private String chassi;
 
     @ManyToOne(fetch = FetchType.LAZY)
