@@ -1,16 +1,16 @@
 import Dashboard from "../pages/dashboard";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import CustomTabBar from "../components/CustomTabBar";
-import Orders from "../pages/orders";
+import Orders from "../pages/ordersList";
 import Stock from "../pages/stock";
 import Profile from "../pages/profile";
-import {AuthProviderList} from "../context/authContext_list";
+import {QuickActionsProvider} from "../context/quickActionsContext";
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomRoutes() {
     return (
-        <AuthProviderList>
+        <QuickActionsProvider>
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
@@ -34,6 +34,6 @@ export default function BottomRoutes() {
                 component={Profile}
             />
         </Tab.Navigator>
-        </AuthProviderList>
+        </QuickActionsProvider>
     );
 }

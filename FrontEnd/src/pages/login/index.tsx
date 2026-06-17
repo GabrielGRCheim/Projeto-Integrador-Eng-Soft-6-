@@ -12,6 +12,13 @@ import {Input} from "../../components/Input";
 import {Button} from "../../components/Button";
 import {useNavigation,NavigationProp} from "@react-navigation/native";
 
+// ATENÇÃO: o back-end ainda não tem endpoint de login/autenticação (sem JWT,
+// sem sessão — apenas CRUD de usuário em /api/usuarios). Por isso esta tela
+// continua sem chamar a API: preencher os dois campos só avança para a área
+// logada, sem validar usuário/senha de fato. Quando o back-end ganhar um
+// endpoint de autenticação, troque getLogin() por uma chamada real e guarde
+// o token retornado (ex: em SecureStore) para ser enviado nas próximas
+// requisições.
 export default function Login() {
 
     const navigation = useNavigation<NavigationProp<any>>();
@@ -29,13 +36,9 @@ export default function Login() {
         try{
             setLoading(true);
 
-            if(!usuario){
+            if(!usuario || !password){
                 return Alert.alert('Atenção','Informe os campos obrigatórios')
             }
-
-            /*setTimeout(()=>{
-                Alert.alert('Logado com sucesso!')
-            }, 3000)*/
 
             navigation.reset({routes:[{name:"BottomRoutes"}]});
 
@@ -81,7 +84,17 @@ export default function Login() {
               onPress={()=>getLogin()}
               />
             </View>
-            <Text style={style.textBottom}>Não possui conta? <TouchableOpacity onPress={()=>go('SingUpRegisterView')}><Text style={style.textBottomCreate}>Crie agora!</Text> </TouchableOpacity> </Text>
+            <View style={style.textBottomContainer}>
+                <Text style={style.textBottom}>
+                    Não possui conta?
+                </Text>
+
+                <TouchableOpacity onPress={() => go('SingUpRegisterView')}>
+                    <Text style={style.textBottomCreate}>
+                        Crie agora!
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

@@ -41,5 +41,11 @@ export const style = StyleSheet.create({
     textBottomCreate: {
         fontSize: 16,
         color:themas.colors.primary,
-    }
+    },
+    textBottomContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 4,
+    },
 })

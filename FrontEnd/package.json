@@ -17,6 +17,7 @@
     "@react-navigation/stack": "^7.10.3",
     "axios": "^1.17.0",
     "expo": "~54.0.34",
+    "expo-checkbox": "~5.0.8",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
     "react-hook-form": "^7.78.0",

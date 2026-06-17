@@ -1,6 +1,7 @@
 import { Dimensions } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import {OrderStatusData} from "../../../@types/dashboard";
+import {STATUS_ORDEM_SERVICO_COLOR, STATUS_ORDEM_SERVICO_LABEL} from "../../../@types/StatusOrdemServico";
 
 type Props = {
     data: OrderStatusData;
@@ -10,36 +11,19 @@ const screenWidth = Dimensions.get("window").width;
 
 export function OrdersStatusChart({ data }: Props) {
 
-    const pieData = [
-        {
-            name: "Recebido",
-            population: 10,
-            color: "#10B981",
+    const pieData = (Object.keys(data) as Array<keyof OrderStatusData>)
+        .filter((status) => data[status] > 0)
+        .map((status) => ({
+            name: STATUS_ORDEM_SERVICO_LABEL[status],
+            population: data[status],
+            color: STATUS_ORDEM_SERVICO_COLOR[status],
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        },
-        {
-            name: "Pendente",
-            population: 5,
-            color: "#F59E0B",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        },
-        {
-            name: "Cancelado",
-            population: 2,
-            color: "#EF4444",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        },
-        {
-            name: "Em análise",
-            population: 8,
-            color: "#2563EB",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 15
-        }
-    ];
+            legendFontSize: 15,
+        }));
+
+    if (pieData.length === 0) {
+        return null;
+    }
 
     return (
 

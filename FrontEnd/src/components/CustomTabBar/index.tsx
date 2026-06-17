@@ -1,13 +1,13 @@
-import React,{useContext} from 'react';
+import React from 'react';
 import {TouchableOpacity, View} from "react-native";
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import {styles} from "./styles";
 import {FontAwesome} from "@expo/vector-icons";
-import {AuthContextList} from "../../context/authContext_list";
+import {useQuickActions} from "../../context/quickActionsContext";
 
 export default function CustomTabBar({state, navigation,}: BottomTabBarProps) {
 
-    const {onOpen} = useContext<any>(AuthContextList);
+    const {onOpen} = useQuickActions();
 
     const go = (screenName:string)=>{
         navigation.navigate(screenName);
